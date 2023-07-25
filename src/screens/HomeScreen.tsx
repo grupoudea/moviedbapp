@@ -1,21 +1,29 @@
-import React, { useEffect } from 'react'
-import { Text, View } from 'react-native'
-import movieDB from '../api/MovieDb'
-import { MovieDBNowPlaying } from '../interfaces/MovieInterface'
+import React from 'react'
+import { ActivityIndicator, Text, View } from 'react-native'
+import { useMovies } from '../hooks/useMovies'
+import MovieCardComponent from '../components/MovieCardComponent';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const HomeScreen = () => {
 
-    useEffect(() => {
-        movieDB.get<MovieDBNowPlaying>('/now_playing')
-        .then(result => {
-            console.log(result.data.results[0].title);
-            
-        })
-    }, [])
+    const {moviesOnCinema, isLoading} = useMovies();
+    const {top} = useSafeAreaInsets();
+
+    if (isLoading) {
+        return (
+            <View>
+                <ActivityIndicator color="red" size={20} />
+            </View>
+        )
+    }
+
+
 
     return (
-        <View>
-            <Text>Home</Text>
+        <View style={{marginTop: top + 20}}>
+            <MovieCardComponent 
+                movie={moviesOnCinema[9]}
+            />
            
         </View>
     )
