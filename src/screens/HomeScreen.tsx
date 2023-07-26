@@ -7,6 +7,8 @@ import Carousel from 'react-native-snap-carousel';
 import { useMovies } from '../hooks/useMovies'
 import MovieCardComponent from '../components/MovieCardComponent';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import HorizontalSliderComponent from '../components/HorizontalSliderComponent';
 
 const {width: windowWidth} = Dimensions.get('window')
 
@@ -26,24 +28,31 @@ const HomeScreen = () => {
 
 
     return (
-        <View style={{marginTop: top + 20}}>
-            {/* <MovieCardComponent 
-                movie={moviesOnCinema[9]}
-            /> */}
+        <ScrollView>
+            <View style={{marginTop: top + 20}}>
 
-            <View style={{
-                height: 440,
-                backgroundColor: 'white'
-            }}>
-                <Carousel 
-                    data={moviesOnCinema}
-                    renderItem={({item}: any) =>  <MovieCardComponent movie={item} />}
-                    sliderWidth={windowWidth}
-                    itemWidth={300}
-                />
+                {/* Carousel principal */}
+                <View style={{
+                    height: 440,
+                }}>
+                    <Carousel 
+                        data={moviesOnCinema}
+                        renderItem={({item}: any) =>  <MovieCardComponent movie={item} />}
+                        sliderWidth={windowWidth}
+                        itemWidth={300}
+                        keyExtractor={(item) => item.id.toString()}
+                    />
+                </View>
+
+                {/* Peliculas populares */}
+                <HorizontalSliderComponent title='Peliculas populares' movies={moviesOnCinema}/>
+                <HorizontalSliderComponent  movies={moviesOnCinema}/>
+
+               
+
+
             </View>
-           
-        </View>
+        </ScrollView>
     )
 }
 
