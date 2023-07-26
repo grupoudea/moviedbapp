@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
+import { Image, StyleSheet, Text, View, Dimensions, ActivityIndicator } from 'react-native';
 import { RootStackParams } from '../navigation/StackNavigator'
 import { ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
@@ -15,7 +15,7 @@ export const DetailScreen = ({route}: DetailScreenProps) => {
   const movie = route.params
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
 
-  const {state} = useMovieDetail(movie.id)  
+  const {isLoading, cast, movieFull} = useMovieDetail(movie.id)  
 
   return (
     <ScrollView>
@@ -32,12 +32,17 @@ export const DetailScreen = ({route}: DetailScreenProps) => {
       </View>
 
       <View style={styles.marginContainer}>
-        <Icon 
+        {/* <Icon 
           name="star-outline"
           color="grey"
           size={20}
-        />
-
+        /> */}
+        {
+          isLoading
+          ? <ActivityIndicator size={35} color="grey" style={{marginTop: 20}}/>
+          : <Text>Reparto</Text>
+        }
+       
       </View>
 
     </ScrollView>
