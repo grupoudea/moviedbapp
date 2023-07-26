@@ -1,12 +1,84 @@
+import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
+import { RootStackParams } from '../navigation/StackNavigator'
+import { ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
+import { useMovieDetail } from '../hooks/useMovieDetail';
 
-const DetailScreen = () => {
+const screenHeight = Dimensions.get('screen').height
+
+interface DetailScreenProps extends StackScreenProps<RootStackParams, 'Details'> {}
+
+export const DetailScreen = ({route}: DetailScreenProps) => {
+  //const movie = route.params as Movie //una forma de hacerlo
+  const movie = route.params
+  const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+
+  const {state} = useMovieDetail(movie.id)  
+
   return (
-    <View>
-        <Text style={{ color: 'black' }}>Detail</Text>
-    </View>
+    <ScrollView>
+      <View style={styles.imageContainer}>
+        <Image 
+          source={{uri}}
+          style={styles.posterImage}
+        />
+      </View>
+
+      <View style={styles.marginContainer}>
+        <Text style={styles.subTitle}>{movie.original_title}</Text>
+        <Text style={styles.title}>{movie.title}</Text>
+      </View>
+
+      <View style={styles.marginContainer}>
+        <Icon 
+          name="star-outline"
+          color="grey"
+          size={20}
+        />
+
+      </View>
+
+    </ScrollView>
   )
 }
 
-export default DetailScreen
+const styles = StyleSheet.create({
+  imageContainer: {
+    width: '100%',
+    overflow: 'hidden',
+    height: screenHeight * 0.7,
+    backgroundColor: '#fff',
+    borderBottomEndRadius: 25,
+    borderBottomStartRadius: 25,
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 10,
+    },
+    shadowOpacity: 0.24,
+    shadowRadius: 10,
+
+    elevation: 8,
+  },
+  posterImage: {
+    flex: 1,
+  },
+  marginContainer: {
+    marginHorizontal: 20,
+    marginTop: 20
+  },
+  subTitle: {
+    fontSize: 16,
+    opacity: 0.8,
+    color: 'black'
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black'
+  }
+    
+});
+

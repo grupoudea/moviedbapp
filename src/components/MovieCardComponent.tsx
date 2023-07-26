@@ -1,6 +1,8 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { Movie } from '../interfaces/MovieInterface'
+import { useNavigation } from '@react-navigation/native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 interface MovieCardProps {
     movie: Movie,
@@ -13,10 +15,22 @@ const MovieCardComponent = ({movie, height = 420, width = 300}: MovieCardProps) 
     console.log(movie.poster_path);
 
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+
+    const navigation = useNavigation()
     
 
     return (
-        <View style={{width, height, marginHorizontal: 5}}>
+        <TouchableOpacity 
+        onPress={() => navigation.navigate('Details', movie)}
+        activeOpacity={0.8}
+        style={{
+            width, 
+            height, 
+            marginHorizontal: 2, 
+            paddingBottom: 20,
+            paddingHorizontal: 7
+        }}
+        >
             <View style={styles.movieCardContainer}>
                 <Image 
                     source={{
@@ -25,24 +39,24 @@ const MovieCardComponent = ({movie, height = 420, width = 300}: MovieCardProps) 
                     style={styles.movieImage}
                 />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     movieCardContainer: {
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: '#fff',
         borderRadius: 18,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 10,
         },
-        shadowOpacity: 0.22,
-        shadowRadius: 7.22,
+        shadowOpacity: 1,
+        shadowRadius: 7,
 
-        elevation: 10,
+        elevation: 7,
     },
     movieImage: {
        flex: 1,
