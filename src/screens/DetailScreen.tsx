@@ -3,8 +3,8 @@ import React from 'react'
 import { Image, StyleSheet, Text, View, Dimensions, ActivityIndicator } from 'react-native';
 import { RootStackParams } from '../navigation/StackNavigator'
 import { ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
 import { useMovieDetail } from '../hooks/useMovieDetail';
+import MovieDetailComponent from '../components/MovieDetailComponent';
 
 const screenHeight = Dimensions.get('screen').height
 
@@ -31,16 +31,12 @@ export const DetailScreen = ({route}: DetailScreenProps) => {
         <Text style={styles.title}>{movie.title}</Text>
       </View>
 
-      <View style={styles.marginContainer}>
-        {/* <Icon 
-          name="star-outline"
-          color="grey"
-          size={20}
-        /> */}
+      <View>
+
         {
           isLoading
           ? <ActivityIndicator size={35} color="grey" style={{marginTop: 20}}/>
-          : <Text>Reparto</Text>
+          : <MovieDetailComponent movieFull={movieFull!} cast={cast} />
         }
        
       </View>
