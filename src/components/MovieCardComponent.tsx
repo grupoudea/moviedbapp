@@ -12,7 +12,7 @@ interface MovieCardProps {
 
 const MovieCardComponent = ({movie, height = 420, width = 300}: MovieCardProps) => {
 
-    console.log(movie.poster_path);
+    // console.log(movie.poster_path);
 
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
 

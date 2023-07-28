@@ -1,24 +1,42 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { Image, StyleSheet, Text, View, Dimensions, ActivityIndicator } from 'react-native';
+import { Image, StyleSheet, Text, View, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { RootStackParams } from '../navigation/StackNavigator'
 import { ScrollView } from 'react-native';
 import { useMovieDetail } from '../hooks/useMovieDetail';
 import MovieDetailComponent from '../components/MovieDetailComponent';
+import { COLORS, globalStyles } from '../theme/Theme';
+import  Icon  from 'react-native-vector-icons/Ionicons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const screenHeight = Dimensions.get('screen').height
 
 interface DetailScreenProps extends StackScreenProps<RootStackParams, 'Details'> {}
 
-export const DetailScreen = ({route}: DetailScreenProps) => {
+export const DetailScreen = ({route, navigation}: DetailScreenProps) => {
   //const movie = route.params as Movie //una forma de hacerlo
+  const { top } = useSafeAreaInsets();
+
   const movie = route.params
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
 
   const {isLoading, cast, movieFull} = useMovieDetail(movie.id)  
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false} >
+
+      {/* Boton para regresas */}
+
+      <View style={{...styles.backButton, marginTop: top}}>
+        <TouchableOpacity onPress={() => navigation.pop()}>
+          <Icon 
+            color={COLORS.textGrey}
+            name='arrow-back-outline'
+            size={30}
+          />
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.imageContainer}>
         <Image 
           source={{uri}}
@@ -27,15 +45,15 @@ export const DetailScreen = ({route}: DetailScreenProps) => {
       </View>
 
       <View style={styles.marginContainer}>
-        <Text style={styles.subTitle}>{movie.original_title}</Text>
-        <Text style={styles.title}>{movie.title}</Text>
+        <Text style={globalStyles.textPrimary}>{movie.original_title}</Text>
+        <Text style={globalStyles.textSecondary}>{movie.title}</Text>
       </View>
 
       <View>
 
         {
           isLoading
-          ? <ActivityIndicator size={35} color="grey" style={{marginTop: 20}}/>
+          ? <ActivityIndicator size={35} color="grey" style={{marginTop: top}}/>
           : <MovieDetailComponent movieFull={movieFull!} cast={cast} />
         }
        
@@ -79,6 +97,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'black'
+  },
+  backButton: {
+    position: 'absolute',
+    zIndex: 999,
+    elevation: 9,
+    top: 10,
+    left: 5,
   }
     
 });
