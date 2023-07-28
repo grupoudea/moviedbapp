@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const movieDB = axios.create({
-    baseURL: 'https://api.themoviedb.org/3/movie',
+    baseURL: 'https://api.themoviedb.org/3',
     params: {
         language: 'es-ES',
     },

@@ -2,6 +2,8 @@ import React from 'react'
 import { View, Text, StatusBar } from 'react-native'
 import  Icon  from 'react-native-vector-icons/Ionicons'
 import { globalStyles, COLORS } from '../theme/Theme'
+import { TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 interface HeaderProps {
     backgroundColor: string,
@@ -10,6 +12,8 @@ interface HeaderProps {
 }
 
 const HeaderComponent = ({backgroundColor = 'transparent', opacity = 1, borderRadius = 0}: HeaderProps) => {
+  
+  const navigation = useNavigation()
   return (
         
     <View style={{
@@ -31,11 +35,15 @@ const HeaderComponent = ({backgroundColor = 'transparent', opacity = 1, borderRa
             <Text style={{...globalStyles.textPrimary, color: COLORS.textSecondary, fontSize: 30}} >M</Text>
             <Text style={{...globalStyles.textPrimary, fontSize: 30}}>ovie</Text>
         </View>
-        <Icon 
-            name='search'
-            color='white'
-            size={30}
-        />
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('Search')}
+        >
+          <Icon 
+              name='search'
+              color='white'
+              size={30}
+          />
+        </TouchableOpacity>
 
     </View>
 
