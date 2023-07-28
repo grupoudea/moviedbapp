@@ -1,9 +1,15 @@
 import React from 'react'
-import { View, Text, SafeAreaView, StatusBar } from 'react-native'
+import { View, Text, StatusBar } from 'react-native'
 import  Icon  from 'react-native-vector-icons/Ionicons'
 import { globalStyles, COLORS } from '../theme/Theme'
 
-const HeaderComponent = () => {
+interface HeaderProps {
+    backgroundColor: string,
+    opacity: number,
+    borderRadius: number,
+}
+
+const HeaderComponent = ({backgroundColor = 'transparent', opacity = 1, borderRadius = 0}: HeaderProps) => {
   return (
         
     <View style={{
@@ -15,10 +21,10 @@ const HeaderComponent = () => {
         alignItems: 'center',
         marginVertical: 20,
         marginHorizontal: 20,
-        backgroundColor: COLORS.backgorudSecondary,
-        opacity: 0.2,
-        borderRadius: 10,
-        borderColor: 'white'
+        paddingHorizontal: 10,
+        backgroundColor: backgroundColor,
+        opacity: opacity,
+        borderRadius: borderRadius,
        
         }}>
         <View style={{flex: 1,flexDirection: 'row',}}>
