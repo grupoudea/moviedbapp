@@ -7,11 +7,11 @@ import Carousel from 'react-native-snap-carousel';
 import { useMovies } from '../hooks/useMovies'
 import MovieCardComponent from '../components/MovieCardComponent';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/dist/Ionicons';
 
 import HorizontalSliderComponent from '../components/HorizontalSliderComponent';
 import HeaderComponent from '../components/HeaderComponent';
 import { COLORS } from '../theme/Theme';
+import { ComponentTextUtils } from '../utils/ComponentsUtils';
 
 //const { width: windowWidth } = Dimensions.get('window')
 
@@ -65,6 +65,7 @@ const HomeScreen = () => {
                 opacity={headerStyle.opacity}
                 borderRadius={headerStyle.borderRadius}
             />
+
             <ScrollView
 
                 style={{ flexGrow: 1 }}
