@@ -94,3 +94,9 @@ export interface SpokenLanguage {
     iso_639_1:    string;
     name:         string;
 }
+
+
+export interface MovieAndCategory {
+    movies: Movie[];
+    category: string;
+}

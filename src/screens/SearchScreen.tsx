@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
 import { useNavigation } from '@react-navigation/native'
 import { useSearchMovie } from '../hooks/useMovies'
+import MovieInfiniteCardComponent from '../components/MovieInfiniteCardComponent'
 
 const { width, height } = Dimensions.get('window');
 
@@ -71,22 +72,26 @@ const SearchScreen = () => {
 									movies.map((item, index) => {
 										const uri = `https://image.tmdb.org/t/p/w500${item.poster_path}`
 										return (
-											<TouchableOpacity
-												key={index}
-												onPress={() => navigation.navigate('Details', item)}>
-												<View style={{ marginTop: 8, marginBottom: 16 }}>
-													<Image
-														source={{ uri: uri }}
-														// source={require('../assets/images/moviePoster2.png')}
-														style={{ width: width * 0.44, height: height * 0.3, borderRadius: 24 }}
-													/>
-													<Text style={{ marginLeft: 4, color: '#d1d5db' }}>
-														{
-															item.title.length > 22 ? item.title.slice(0, 22) + '...' : item.title
-														}
-													</Text>
-												</View>
-											</TouchableOpacity>
+											// <TouchableOpacity
+											// 	key={index}
+											// 	onPress={() => navigation.navigate('Details', item)}>
+											// 	<View style={{ marginTop: 8, marginBottom: 16 }}>
+											// 		<Image
+											// 			source={{ uri: uri }}
+											// 			// source={require('../assets/images/moviePoster2.png')}
+											// 			style={{ width: width * 0.44, height: height * 0.3, borderRadius: 24 }}
+											// 		/>
+											// 		<Text style={{ marginLeft: 4, color: '#d1d5db' }}>
+											// 			{
+											// 				item.title.length > 22 ? item.title.slice(0, 22) + '...' : item.title
+											// 			}
+											// 		</Text>
+											// 	</View>
+											// </TouchableOpacity>
+											<MovieInfiniteCardComponent 
+												movie={item}
+												uri={uri}
+											/>
 										)
 									})
 								}
