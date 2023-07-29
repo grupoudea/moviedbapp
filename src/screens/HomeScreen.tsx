@@ -91,9 +91,6 @@ const HomeScreen = () => {
                     <HorizontalSliderComponent title='Popular' movies={popular} />
                     <HorizontalSliderComponent title='Top Rated' movies={topRated} />
                     <HorizontalSliderComponent title='Upcoming' movies={upcoming} />
-                    <HorizontalSliderComponent title='Upcoming' movies={upcoming} />
-                    <HorizontalSliderComponent title='Upcoming' movies={upcoming} />
-                    <HorizontalSliderComponent title='Upcoming' movies={upcoming} />
 
 
                 </View>

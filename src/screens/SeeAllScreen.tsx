@@ -25,7 +25,7 @@ const SeeAllScreen = ({route, navigation}: SeeAllScreenProps) => {
             <Text style={globalStyles.textPrimary}>{category}</Text>
         </View>
         
-        {/* Componente que servira para la pantalla de search como para esta */}
+        {/* Componente que servirá para la pantalla de search como para esta */}
         <MovieInfiniteScrollComponent movies={movies} category={category}/>
     </SafeAreaView>
   )

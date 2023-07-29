@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, View, Image, Text, Dimensions, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, Text, Dimensions, StyleSheet } from 'react-native'
 import { Movie } from '../interfaces/MovieInterface';
 import { useNavigation } from '@react-navigation/native';
 import { FadeInImage } from './FadeInImage';
@@ -23,19 +23,14 @@ const MovieInfiniteCardComponent = ({movie, uri}: MovieInfiniteCardProps) => {
             onPress={() => navigation.navigate('Details', movie)}>
             <View style={styles.cardContainer}>
 
-                    <FadeInImage 
-                         uri={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                         style={{
-                            width: width*0.3, 
-                            height: height * 0.25, borderRadius: 24
-                     }}
-                     />
-
-                {/* <Image
-                    source={{ uri: uri }}
-                    // source={require('../assets/images/moviePoster2.png')}
-                    style={{ height: height * 0.25, borderRadius: 24 }}
-                /> */}
+                <FadeInImage 
+                    uri={uri}
+                    style={{
+                        width: width*0.3, 
+                        height: height * 0.25, 
+                        borderRadius: 24
+                    }}
+                />
                 <Text style={{ marginLeft: 4, color: '#d1d5db' }}>
                     {
                         movie.title.length > 22 ? movie.title.slice(0, 22) + '...' : movie.title
@@ -52,8 +47,6 @@ const styles = StyleSheet.create({
         marginBottom: 16, 
         marginHorizontal: 5,
         width: width*0.3,
-        
-
     }
     
 });

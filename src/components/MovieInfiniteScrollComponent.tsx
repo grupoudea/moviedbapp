@@ -13,7 +13,7 @@ interface MovieInfinityScrollProps {
 const MovieInfiniteScrollComponent = ({ movies, category }: MovieInfinityScrollProps) => {
     console.log("mis: " + movies.length);
 
-    const {moviesFetched, actualPage, fetchData} = useInfiniteFetchMovie(category)
+    const {moviesFetched, fetchData} = useInfiniteFetchMovie(category)
 
     return (
         <View style={{alignItems: 'center'}}>
