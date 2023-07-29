@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     width: '100%',
     overflow: 'hidden',
     height: screenHeight * 0.7,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.backgroudPrimary,
     borderBottomEndRadius: 25,
     borderBottomStartRadius: 25,
     shadowColor: "#000",

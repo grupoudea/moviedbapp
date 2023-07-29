@@ -29,9 +29,14 @@ const SearchScreen = () => {
 	const inputRef = useRef<TextInput>(null);
 
 	useEffect(() => {
-	  if (inputRef.current) {
-		inputRef.current.focus();
-	  }
+
+		if (inputRef.current) {
+			inputRef.current.focus();
+			handleScroll()
+		}
+		
+	  
+		 
 	}, []);
 
 	const cleanTextInput = () => {
@@ -62,6 +67,7 @@ const SearchScreen = () => {
 					placeholder='Search movie'
 					placeholderTextColor={'lightgrey'}
 					style={styles.searchTextInput}
+					autoFocus
 				/>
 				<TouchableOpacity
 					onPress={() => cleanTextInput()}

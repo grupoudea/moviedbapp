@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { Movie } from '../interfaces/MovieInterface'
 import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { COLORS } from '../theme/Theme'
 
 interface MovieCardProps {
     movie: Movie,
@@ -46,7 +47,7 @@ const MovieCardComponent = ({movie, height = 420, width = 300}: MovieCardProps) 
 const styles = StyleSheet.create({
     movieCardContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: COLORS.backgroudPrimary,
         borderRadius: 18,
         shadowColor: "#000",
         shadowOffset: {
