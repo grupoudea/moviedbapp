@@ -41,7 +41,7 @@ const HeaderComponent = ({backgroundColor = 'transparent', opacity = 1, borderRa
           <Icon 
               name='search'
               color='white'
-              size={30}
+              size={20}
           />
         </TouchableOpacity>
 

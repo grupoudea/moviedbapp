@@ -2,7 +2,7 @@ import React from 'react'
 import { Movie } from '../interfaces/MovieInterface'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import MovieCardComponent from './MovieCardComponent'
-import { globalStyles } from '../theme/Theme'
+import { COLORS, globalStyles } from '../theme/Theme'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 
@@ -10,9 +10,6 @@ interface HorizontalSliderProps {
     title?: string,
     movies: Movie[],
 }
-
-
-
 
 const HorizontalSliderComponent = ({ title, movies }: HorizontalSliderProps) => {
     const navigation = useNavigation();
@@ -39,7 +36,19 @@ const HorizontalSliderComponent = ({ title, movies }: HorizontalSliderProps) => 
                 <TouchableOpacity
                 onPress={() => navigation.navigate('SeeAll', {movies, category})}
                 >
-                    <Text style={globalStyles.textSecondary}>Ver más</Text>
+                    <Text style={{
+                        ...globalStyles.textPrimary, 
+                        fontSize: 12,
+                        color: 'black',
+                        backgroundColor: COLORS.textSecondary,
+                        paddingHorizontal: 10,
+                        paddingVertical: 2,
+                        borderRadius: 999,
+                        
+                        }}
+                    >
+                        Ver más
+                    </Text>
                 </TouchableOpacity>
 
 
@@ -66,6 +75,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between', 
         alignItems: 'center',
         paddingHorizontal: 10,
+        marginBottom: 5
 
     }
 });
