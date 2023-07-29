@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList,  View, ActivityIndicator } from 'react-native';
+import { FlatList,  View, ActivityIndicator, Dimensions } from 'react-native';
 import { Movie } from '../interfaces/MovieInterface'
 import { useInfiniteFetchMovie } from '../hooks/useMovies'
 import MovieInfiniteCardComponent from './MovieInfiniteCardComponent';
@@ -9,6 +9,7 @@ interface MovieInfinityScrollProps {
     category: string,
 }
 
+const { width, height } = Dimensions.get('window');
 
 const MovieInfiniteScrollComponent = ({ movies, category }: MovieInfinityScrollProps) => {
     console.log("mis: " + movies.length);
@@ -25,6 +26,11 @@ const MovieInfiniteScrollComponent = ({ movies, category }: MovieInfinityScrollP
                     <MovieInfiniteCardComponent 
                         movie={item}
                         uri={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                        style={{
+                            marginHorizontal: 5,
+                            width: width*0.3, 
+                            height: height * 0.25
+                        }}
                     />
                 )}
                 keyExtractor={(item) => item.id.toString()}

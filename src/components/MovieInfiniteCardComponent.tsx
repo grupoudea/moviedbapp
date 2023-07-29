@@ -1,18 +1,21 @@
 import React from 'react'
-import { TouchableOpacity, View, Text, Dimensions, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, Text, Dimensions, StyleSheet, ImageStyle, StyleProp } from 'react-native'
 import { Movie } from '../interfaces/MovieInterface';
 import { useNavigation } from '@react-navigation/native';
 import { FadeInImage } from './FadeInImage';
 
-interface MovieInfiniteCardProps {
-    movie: Movie,
-    uri: string
-}
-
 const { width, height } = Dimensions.get('window');
 
 
-const MovieInfiniteCardComponent = ({movie, uri}: MovieInfiniteCardProps) => {
+interface MovieInfiniteCardProps {
+    movie: Movie,
+    uri: string,
+    style?: StyleProp<ImageStyle>,
+    titleMaxLength?: number
+
+}
+
+const MovieInfiniteCardComponent = ({movie, uri, style = {}, titleMaxLength = 15}: MovieInfiniteCardProps) => {
 
     const navigation = useNavigation();
 
@@ -21,19 +24,21 @@ const MovieInfiniteCardComponent = ({movie, uri}: MovieInfiniteCardProps) => {
             activeOpacity={0.9}
             key={movie.id}
             onPress={() => navigation.navigate('Details', movie)}>
-            <View style={styles.cardContainer}>
+
+            <View style={StyleSheet.compose(styles.cardContainer, style)}>
 
                 <FadeInImage 
                     uri={uri}
                     style={{
-                        width: width*0.3, 
-                        height: height * 0.25, 
-                        borderRadius: 24
+                        ...style as any, 
+                        marginHorizontal: 0,
+                        borderRadius: 24,
+                        marginBottom: 2
                     }}
                 />
                 <Text style={{ marginLeft: 4, color: '#d1d5db' }}>
                     {
-                        movie.title.length > 22 ? movie.title.slice(0, 22) + '...' : movie.title
+                        movie.title.length > titleMaxLength ? movie.title.slice(0, titleMaxLength) + '...' : movie.title
                     }
                 </Text>
             </View>
@@ -44,9 +49,7 @@ const MovieInfiniteCardComponent = ({movie, uri}: MovieInfiniteCardProps) => {
 const styles = StyleSheet.create({
     cardContainer: {
         marginTop: 8, 
-        marginBottom: 16, 
-        marginHorizontal: 5,
-        width: width*0.3,
+        marginBottom: 30, 
     }
     
 });

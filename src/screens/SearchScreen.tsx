@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, Dimensions, Image, Keyboard, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { COLORS, globalStyles } from '../theme/Theme'
@@ -26,12 +26,37 @@ const SearchScreen = () => {
 		Keyboard.dismiss(); // Cierra el teclado cuando ocurre el evento de scroll
 	};
 
+	const inputRef = useRef<TextInput>(null);
+
+	useEffect(() => {
+	  if (inputRef.current) {
+		inputRef.current.focus();
+	  }
+	}, []);
+
+	const cleanTextInput = () => {
+		setTextValue('')
+		console.log(textValue);
+		
+	}
 
 
 	return (
 		<SafeAreaView style={styles.searchScreen}>
 			<View style={styles.searchContainer}>
+				<TouchableOpacity
+					onPress={() => navigation.goBack()}
+					style={styles.searchOpacity}
+				>
+					<Icon
+						name='arrow-back'
+						size={20}
+						color={COLORS.textSecondary}
+					/>
+				</TouchableOpacity>
+
 				<TextInput
+					ref={inputRef}
 					value={textValue}
 					onChangeText={setTextValue}
 					placeholder='Search movie'
@@ -39,12 +64,12 @@ const SearchScreen = () => {
 					style={styles.searchTextInput}
 				/>
 				<TouchableOpacity
-					onPress={() => navigation.goBack()}
+					onPress={() => cleanTextInput()}
 					style={styles.searchOpacity}
 				>
 					<Icon
 						name='close'
-						size={30}
+						size={20}
 						color={COLORS.textSecondary}
 					/>
 				</TouchableOpacity>
@@ -58,47 +83,38 @@ const SearchScreen = () => {
 					<ActivityIndicator color={COLORS.textGrey} size={20} style={{ marginTop: top }} />
 				) :
 					movies.length > 0 ? (
-						<ScrollView
-							ref={scrollViewRef}
-							onScroll={handleScroll}
-							keyboardShouldPersistTaps="handled"
-							showsVerticalScrollIndicator={false}
-							contentContainerStyle={{ paddingHorizontal: 15 }}
-							style={{ marginTop: 12 }}
-						>
-							<Text style={globalStyles.textPrimary}>Resultados: {movies.length}</Text>
-							<View style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-								{
-									movies.map((item, index) => {
-										const uri = `https://image.tmdb.org/t/p/w500${item.poster_path}`
-										return (
-											// <TouchableOpacity
-											// 	key={index}
-											// 	onPress={() => navigation.navigate('Details', item)}>
-											// 	<View style={{ marginTop: 8, marginBottom: 16 }}>
-											// 		<Image
-											// 			source={{ uri: uri }}
-											// 			// source={require('../assets/images/moviePoster2.png')}
-											// 			style={{ width: width * 0.44, height: height * 0.3, borderRadius: 24 }}
-											// 		/>
-											// 		<Text style={{ marginLeft: 4, color: '#d1d5db' }}>
-											// 			{
-											// 				item.title.length > 22 ? item.title.slice(0, 22) + '...' : item.title
-											// 			}
-											// 		</Text>
-											// 	</View>
-											// </TouchableOpacity>
-											<MovieInfiniteCardComponent 
-												movie={item}
-												uri={uri}
-											/>
-										)
-									})
-								}
-							</View>
+						<>
+							<Text style={{...globalStyles.textPrimary, paddingHorizontal:15}}>Resultados: {movies.length}</Text>
+							<ScrollView
+								ref={scrollViewRef}
+								onScroll={handleScroll}
+								keyboardShouldPersistTaps="handled"
+								showsVerticalScrollIndicator={false}
+								contentContainerStyle={{ paddingHorizontal: 15 }}
+								style={{ marginTop: 12 }}
+							>
+								<View style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+									{
+										movies.map((item, index) => {
+											const uri = `https://image.tmdb.org/t/p/w500${item.poster_path}`
+											return (
+												<MovieInfiniteCardComponent
+													key={index}
+													movie={item}
+													uri={uri}
+													style={{
+														width: width * 0.44,
+														height: height * 0.3
+													}}
+													titleMaxLength={22}
+												/>
+											)
+										})
+									}
+								</View>
+							</ScrollView>
+						</>
 
-
-						</ScrollView>
 					) : (
 						<View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 							<Image
@@ -108,9 +124,6 @@ const SearchScreen = () => {
 						</View>
 					)
 			}
-
-
-
 		</SafeAreaView>
 	)
 }
@@ -125,20 +138,21 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		marginTop: 5,
+		marginBottom: 16,
 		marginHorizontal: 16,
-		marginBottom: 12,
 		borderRadius: 9999,
 		borderWidth: 1,
 		borderColor: '#737373'
 	},
 	searchTextInput: {
-		paddingLeft: 24,
 		flex: 1,
-		fontSize: 16,
-		lineHeight: 28,
+		paddingLeft: 15,
+		fontSize: 18,
+		lineHeight: 20,
 		letterSpacing: 1,
 		fontWeight: '500',
-		color: 'white'
+		color: 'white',
+		height: 40
 	},
 	searchOpacity: {
 		borderRadius: 9999,
