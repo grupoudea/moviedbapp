@@ -1,9 +1,8 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { RootStackParams } from '../navigation/StackNavigator'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { globalStyles } from '../theme/Theme';
 import MovieInfiniteScrollComponent from '../components/MovieInfiniteScrollComponent'
 import { Movie } from '../interfaces/MovieInterface'
 import { ComponentTextUtils } from '../utils/ComponentsUtils'
@@ -11,7 +10,7 @@ import { ComponentTextUtils } from '../utils/ComponentsUtils'
 interface SeeAllScreenProps extends StackScreenProps<RootStackParams, 'SeeAll'> {}
  
 
-const SeeAllScreen = ({route, navigation}: SeeAllScreenProps) => {
+const SeeAllScreen = ({route}: SeeAllScreenProps) => {
 
     const category = route.params.category
     const movies: Movie[] = route.params.movies
@@ -31,17 +30,14 @@ const SeeAllScreen = ({route, navigation}: SeeAllScreenProps) => {
     
     
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, }}>
 
         <View style={{
           marginHorizontal: 10, 
           marginTop: 10, 
-          marginBottom: 20, 
-
+          marginBottom: 20,
         }}>
             <ComponentTextUtils text={getCategoryVisualName(category)} />
-
-
         </View>
         
         {/* Componente que servirá para la pantalla de search como para esta */}

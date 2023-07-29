@@ -3,6 +3,8 @@ import { FlatList,  View, ActivityIndicator, Dimensions } from 'react-native';
 import { Movie } from '../interfaces/MovieInterface'
 import { useInfiniteFetchMovie } from '../hooks/useMovies'
 import MovieInfiniteCardComponent from './MovieInfiniteCardComponent';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { COLORS } from '../theme/Theme';
 
 interface MovieInfinityScrollProps {
     movies: Movie[],
@@ -13,11 +15,12 @@ const { width, height } = Dimensions.get('window');
 
 const MovieInfiniteScrollComponent = ({ movies, category }: MovieInfinityScrollProps) => {
     console.log("mis: " + movies.length);
+    const {bottom} = useSafeAreaInsets()
 
     const {moviesFetched, fetchData} = useInfiniteFetchMovie(category)
 
     return (
-        <View style={{alignItems: 'center'}}>
+        <View style={{ flex: 1, alignItems: 'center'}}>
             <FlatList
                 data={moviesFetched}
                 numColumns={3}
@@ -39,11 +42,11 @@ const MovieInfiniteScrollComponent = ({ movies, category }: MovieInfinityScrollP
                 onEndReachedThreshold={0.4}
                 ListFooterComponent={
                     <ActivityIndicator 
-                        style={{height: 100}}
-                        color='grey'
+                        color={COLORS.textSecondary}
                         size={20}
                     />
                 }
+                
             />
 
         </View>

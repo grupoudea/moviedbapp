@@ -27,6 +27,8 @@ const SearchScreen = () => {
 	};
 
 	const inputRef = useRef<TextInput>(null);
+	const [isFocused, setIsFocused] = useState(true);
+
 
 	useEffect(() => {
 
@@ -41,6 +43,7 @@ const SearchScreen = () => {
 
 	const cleanTextInput = () => {
 		setTextValue('')
+		setIsFocused(true);
 		console.log(textValue);
 		
 	}
@@ -67,7 +70,7 @@ const SearchScreen = () => {
 					placeholder='Search movie'
 					placeholderTextColor={'lightgrey'}
 					style={styles.searchTextInput}
-					autoFocus
+					autoFocus={isFocused}
 				/>
 				<TouchableOpacity
 					onPress={() => cleanTextInput()}
